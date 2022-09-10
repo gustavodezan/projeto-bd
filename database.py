@@ -15,8 +15,13 @@ databases = []
 for x in mycursor:
   databases.append(x)
 
+create_db = open("./create.sql", "r")
+
 if "museu" not in databases:
-  mycursor.execute("CREATE DATABASE museu")
+  for line in create_db:
+    if line.strip() != "":
+      print("line:",line)
+      mycursor.execute(line.strip())
 
 mydb = mysql.connector.connect(
   host="localhost",
