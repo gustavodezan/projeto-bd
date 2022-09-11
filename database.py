@@ -17,12 +17,10 @@ for x in mycursor:
 
 create_db = open("./create.sql", "r")
 
-if "museu" not in databases:
-  for line in create_db:
-    if line.strip() != "":
-      print("line:",line)
-      mycursor.execute(line.strip())
-
+for line in create_db:
+  if line.strip() != "":
+    mycursor.execute(line.strip())
+print("Database created!")
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
