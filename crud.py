@@ -109,6 +109,67 @@ def create_autoria(CodigoObra, CodigoAutor):
     mydb.commit()
     print(mycursor.rowcount, "Authorship record inserted.")
 
+# add a record to the database -> multiple args
+def create_record(table, *args):
+    if table == "Dono":
+        create_dono_arte(*args)
+    elif table == "Ala":
+        create_ala(*args)
+    elif table == "Obra":
+        create_arte(*args)
+    elif table == "Autor":
+        create_autor(*args)
+    elif table == "Evento":
+        create_evento(*args)
+    elif table == "IntegranteEvento":
+        create_integrante_evento(*args)
+    elif table == "Visitante":
+        create_visitante(*args)
+    elif table == "Funcionario":
+        create_funcionario(*args)
+    elif table == "ItemPerdido":
+        create_item_perdido(*args)
+    elif table == "DataVisita":
+        create_data_visita(*args)
+    elif table == "Trabalha":
+        create_trabalha(*args)
+    elif table == "Participa":
+        create_participa(*args)
+    elif table == "Autoria":
+        create_autoria(*args)
+    else:
+        print("Invalid table name.")
+
+# Delete a record from the database
+def delete_record(table, column, value):
+    sql = "DELETE FROM " + table + " WHERE " + column + " = " + value
+    mycursor.execute(sql)
+    mydb.commit()
+    print(mycursor.rowcount, "record(s) deleted")
+
+# Update a record from the database
+def update_record(table, column, value, column2, value2):
+    sql = "UPDATE " + table + " SET " + column + " = " + value + " WHERE " + column2 + " = " + value2
+    mycursor.execute(sql)
+    mydb.commit()
+    print(mycursor.rowcount, "record(s) affected")
+
+# Select a record from the database
+def select_record(table, column, value):
+    sql = "SELECT * FROM " + table + " WHERE " + column + " = " + value
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+
+# Select all records from the database
+def select_all(table):
+    sql = "SELECT * FROM " + table
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+
 if __name__ == "__main__":
     create_dono_arte(1, "Brasil", "João", False)
     create_ala(1, "Arte", 1, "Arte")
@@ -128,3 +189,6 @@ if __name__ == "__main__":
     create_trabalha(1, 1)
     create_participa(1, "Evento")
     create_autoria(1, 1)
+
+    # select_all("Autor")
+    select_record("Autor", "Nome", "'João'")
