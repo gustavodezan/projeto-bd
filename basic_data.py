@@ -1,9 +1,6 @@
 from crud import *
 
 if __name__ == "__main__":
-    Img = open("./img/pic1.jpg", "rb")
-    Imagem = Img.read()
-    Img.close()
     create_dono_arte(2, "Brasil", "Gutemberg Ervano Paula", False)
     create_dono_arte(3, "França", "Museu do Louvre", True)
     create_dono_arte(4, "Brasil", "Nilza Barrada Bochimpani", False)
@@ -24,19 +21,66 @@ if __name__ == "__main__":
     create_ala(8, "A2-2", 2, "Almoxarifado")
     create_ala(9, "A2-3", 2, "Diretoria")
 
-    create_arte(1, 2, 5, "Florença", datetime(1400,12,30), datetime(1400,12,30), "Óleo sobre madeira de álamo", "Mona Lisa", "Renascimento", Imagem) #TODO inserir imagens das obras!!!!
-    create_arte(2, 8, 5, "Japão", datetime(1400,12,30), datetime(1400,12,30), "Gravura", "A Grande Onda de Kanagawa", "Ukiyo-e", Imagem)
-    create_arte(3, 6, 2, "Noruega", datetime(1893,1,10), datetime(1893,1,10), "Óleo sobre tela, Têmpera e Pastel", "O Grito", "Expressionismo", Imagem)
-    create_arte(4, 3, 5, "Holanda", datetime(1889,1,10), datetime(1889,1,10), "Óleo sobre tela", "A Noite Estrelada", "Pós-Impressionismo", Imagem)
-    create_arte(5, 9, 3, "Florença", datetime(1501,1,10), datetime(1501,1,10), "Mármore", "David ", "Renascimento", Imagem)
-    create_arte(6, 8, 2, "Holanda", datetime(1665,1,10), datetime(1665,1,10), "Óleo sobre tela", "Meisje met de parel", "Barroco", Imagem)
-    create_arte(7, 2, 4, "Egito", datetime(1323,1,10), datetime(1323,1,10), "Ouro", "Máscara mortuária de Tutancâmon", "Arte Funerária Antiga", Imagem)
-    create_arte(8, 9, 4, "Brasil", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Urna Funerária Marajoara #1", "Arte Funerária Antiga", Imagem)
-    create_arte(9, 9, 4, "Brasil", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Urna Funerária Marajoara #2", "Arte Funerária Antiga", Imagem)
-    create_arte(10, 3, 4, "Japão", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Dogu", "Arte Antiga", Imagem)
-    create_arte(11, 5, 4, "Áustria", datetime(1323,1,10), datetime(1323,1,10), "Calcário", "Vênus de Willendorf", "Arte Antiga", Imagem)
-    create_arte(12, 3, 3, "Grécia", datetime(200,1,10), datetime(200,1,10), "Mármore", "Vênus de Milo", "Arte Antiga", Imagem)
 
+    Img = open("./img/pic1.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(1, 2, 5, "Florença", datetime(1400,12,30), datetime(1400,12,30), "Óleo sobre madeira de álamo", "Mona Lisa", "Renascimento", Imagem) #TODO inserir imagens das obras!!!!
+    
+    Img = open("./img/pic2.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(2, 8, 5, "Japão", datetime(1400,12,30), datetime(1400,12,30), "Gravura", "A Grande Onda de Kanagawa", "Ukiyo-e", Imagem)
+        
+    Img = open("./img/pic3.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(3, 6, 2, "Noruega", datetime(1893,1,10), datetime(1893,1,10), "Óleo sobre tela, Têmpera e Pastel", "O Grito", "Expressionismo", Imagem)
+    
+    Img = open("./img/pic4.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(4, 3, 5, "Holanda", datetime(1889,1,10), datetime(1889,1,10), "Óleo sobre tela", "A Noite Estrelada", "Pós-Impressionismo", Imagem)
+    
+    Img = open("./img/pic5.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(5, 9, 3, "Florença", datetime(1501,1,10), datetime(1501,1,10), "Mármore", "David ", "Renascimento", Imagem)
+    
+    Img = open("./img/pic6.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(6, 8, 2, "Holanda", datetime(1665,1,10), datetime(1665,1,10), "Óleo sobre tela", "Meisje met de parel", "Barroco", Imagem)
+    
+    Img = open("./img/pic7.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(7, 2, 4, "Egito", datetime(1323,1,10), datetime(1323,1,10), "Ouro", "Máscara mortuária de Tutancâmon", "Arte Funerária Antiga", Imagem)
+    
+    Img = open("./img/pic8.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(8, 9, 4, "Brasil", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Urna Funerária Marajoara #1", "Arte Funerária Antiga", Imagem)
+    
+    Img = open("./img/pic9.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(9, 9, 4, "Brasil", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Urna Funerária Marajoara #2", "Arte Funerária Antiga", Imagem)
+    
+    Img = open("./img/pic10.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(10, 3, 4, "Japão", datetime(1323,1,10), datetime(1323,1,10), "Argila", "Dogu", "Arte Antiga", Imagem)
+    
+    Img = open("./img/pic11.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(11, 5, 4, "Áustria", datetime(1323,1,10), datetime(1323,1,10), "Calcário", "Vênus de Willendorf", "Arte Antiga", Imagem)
+    
+    Img = open("./img/pic12.jpg", "rb")
+    Imagem = Img.read()
+    Img.close()
+    create_arte(12, 3, 3, "Grécia", datetime(200,1,10), datetime(200,1,10), "Mármore", "Vênus de Milo", "Arte Antiga", Imagem)
 
     create_autor(1, "Edvard Munch", datetime(1863,12,12),datetime(1944,1,23), "Noruega")
     create_autor(2, "Vincent van Gogh", datetime(1853,3,30), datetime(1890,7,29), "Holanda")

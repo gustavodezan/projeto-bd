@@ -32,8 +32,14 @@ class DonoScr(tk.Toplevel):
         for art in arts:
             if i != 0:
                 nome_obra = art[7]
-                nome_dono = crud.select_record("DonoArte", "Codigo", str(art[1]))[2]
-                nome_ala = crud.select_record("Ala", "Codigo", str(art[2]))[1]
+                try:
+                    nome_dono = crud.select_record("DonoArte", "Codigo", str(art[1]))[2]
+                except:
+                    nome_dono = ""
+                try:
+                    nome_ala = crud.select_record("Ala", "Codigo", str(art[2]))[1]
+                except:
+                    nome_ala = ""
                 art = list(art[:1]) + [nome_obra] + [nome_dono] + [nome_ala]
             self.arts.insert(tk.END, art)
             i += 1

@@ -90,8 +90,10 @@ class VisualizeAutorScr(tk.Toplevel):
         self.title("Visualizar Obra de Arte")
 
         # Selecionar obra de arte no banco
-        dono = crud.select_record("Autor", "Codigo", str(self.codigo))
-
+        try:
+            dono = crud.select_record("Autor", "Codigo", str(self.codigo))
+        except:
+            dono = ""
         # Listar informações da obra de arte uma por linha
         lbl_dono = ttk.Label(self, text="Informações sobre o Aurtista")
         lbl_dono.pack(fill=tk.X, padx=15, pady=5)

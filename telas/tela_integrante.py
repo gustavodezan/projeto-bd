@@ -16,14 +16,14 @@ class ClienteScr(tk.Toplevel):
         style.theme_use("clam")
         self.title("Registros")
 
-        # White label to show all users
         lbl_users = ttk.Label(self, text="Integrantes de Eventos")
         lbl_users.pack(fill=tk.X, padx=15, pady=5)
-        # read users with and show them in a listbox
         self.users = tk.Listbox(self)
         self.users.pack(fill=tk.X, padx=15, pady=5)
-        # read users from database
-        users = crud.select_all("IntegranteEvento")
+        try:
+            users = crud.select_all("IntegranteEvento")
+        except:
+            pass
         for user in users:
             self.users.insert(tk.END, user)
 

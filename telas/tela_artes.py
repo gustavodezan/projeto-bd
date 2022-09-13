@@ -37,8 +37,14 @@ class ArtesScr(tk.Toplevel):
         for art in arts:
             if i != 0:
                 nome_obra = art[7]
-                nome_dono = crud.select_record("DonoArte", "Codigo", str(art[1]))[2]
-                nome_ala = crud.select_record("Ala", "Codigo", str(art[2]))[1]
+                try:
+                    nome_dono = crud.select_record("DonoArte", "Codigo", str(art[1]))[2]
+                except:
+                    pass
+                try:
+                    nome_ala = crud.select_record("Ala", "Codigo", str(art[2]))[1]
+                except:
+                    pass
                 art = list(art[:1]) + [nome_obra] + [nome_dono] + [nome_ala]
             self.arts.insert(tk.END, art)
             i += 1
@@ -121,14 +127,23 @@ class VisualizeArtScr(tk.Toplevel):
         labels = ["Codigo", "Autor", "Dono", "Ala", "Local de Criacao", "Data de Inicio", "Data de Conclusao", "Material", "Nome", "Movimento Artistico"]
 
         # Carregar nome do Dono
-        nome_dono = crud.select_record("DonoArte", "Codigo", str(art[0]))[2]
-        
-        # Carregar nome da Ala
-        nome_ala = crud.select_record("Ala", "Codigo", str(art[1]))[1]
+        try:
+            nome_dono = crud.select_record("DonoArte", "Codigo", str(art[0]))[2]
+        except:
+            nome_dono = "Desconhecido"
 
+        # Carregar nome da Ala
+        try:
+            nome_ala = crud.select_record("Ala", "Codigo", str(art[1]))[1]
+        except:
+            nome_ala = ""
         # Carregar autor
-        codigo_autor = crud.select_record("Autoria", "CodigoObra", str(art[0]))[1]
-        nome_autor = crud.select_record("Autor", "Codigo", str(codigo_autor))[1]
+        try:
+            codigo_autor = crud.select_record("Autoria", "CodigoObra", str(art[0]))[1]
+            nome_autor = crud.select_record("Autor", "Codigo", str(codigo_autor))[1]
+        except:
+            codigo_autor = ""
+            nome_autor = "Desconhecido"
 
         art = list(art)
         art.insert(1, codigo_autor)

@@ -24,10 +24,25 @@ class ClienteScr(tk.Toplevel):
         self.users.pack(fill=tk.X, padx=15, pady=5)
         # read users from database
         users = crud.select_all("Visitante")
+        labels = ["CPF", "Nome", "Nacionalidade", "Tipo de entrada"]
+        users = list(users)
+
+        for i in range(len(users)):
+            users[i] = list(users[i])
+            if users[i][3] == 1:
+                tipo = "Inteira"
+            else:
+                tipo = "Meia"
+            users[i][3] = tipo
+
+        users.insert(0, labels)
         for user in users:
             self.users.insert(tk.END, user)
-
+            
         # create CRUD buttons
+        btn_selecionar = ttk.Button(self, text="Selecionar", command=lambda: VerVisitanteScr(self, self.users.get(self.users.curselection())[0]))
+        btn_selecionar.pack(fill=tk.X, padx=15, pady=5)
+
         btn_create = ttk.Button(self, text="Criar", command=lambda:CreateClienteScr(self))
         btn_create.pack(fill=tk.X, padx=15, pady=5)
 
@@ -56,6 +71,33 @@ class ClienteScr(tk.Toplevel):
         self.destroy()
         self.__init__()
 
+
+class VerVisitanteScr(tk.Toplevel):
+    def __init__(self, master=None, codigo=None):
+        super().__init__(master=master)
+        self.codigo = codigo
+        self.initUI()
+        self.master.iconify()
+    
+    def initUI(self):
+        lbl_users = ttk.Label(self, text="Integrantes de Eventos")
+        lbl_users.pack(fill=tk.X, padx=15, pady=5)
+        self.users = tk.Listbox(self)
+        self.users.pack(fill=tk.X, padx=15, pady=5)
+        
+        users = crud.select_record("Visitante", "CPF", self.codigo)
+        labels = ["CPF", "Nome", "Nacionalidade", "Tipo de entrada"]
+        users = list(users)
+        i = 0
+        for user in users:
+            try:
+                self.users.insert(tk.END, str(labels[i]) + ": " + str(user))
+            except:
+                continue
+            i += 1
+        users = crud.select_all_where("DataVisita", "CodigoVisitante", self.codigo)
+        for user in users:
+            self.users.insert(tk.END, user)
 
 class CreateClienteScr(tk.Toplevel):
     def __init__(self, master=None):

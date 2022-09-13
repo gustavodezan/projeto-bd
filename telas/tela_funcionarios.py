@@ -198,7 +198,10 @@ class UpdateFuncionarioScr(tk.Toplevel):
             table.lower().capitalize()
             data = self.data.get()
 
-            crud.update_record("Funcionario", table, data, "Codigo", str(self.codigo_funcionario))
+            try:
+                crud.update_record("Funcionario", table, data, "Codigo", str(self.codigo_funcionario))
+            except:
+                pass
             self.master.refresh()
             self.destroy()
         except Exception as e:

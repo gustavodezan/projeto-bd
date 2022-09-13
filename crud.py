@@ -150,6 +150,12 @@ def select_all(table:str):
     myresult = mycursor.fetchall()
     return myresult
 
+def select_all_where(table:str, column:str, value:str):
+    sql = "SELECT * FROM " + table + " WHERE " + column + " = " + value
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    return myresult
+
 # Login
 def verifica_login(user:int, password:str) -> list:
     sql = "SELECT * FROM Funcionario WHERE Matricula = " + user
