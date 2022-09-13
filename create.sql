@@ -3,7 +3,7 @@ USE museu;
 
 CREATE TABLE DonoArte(Codigo INT NOT NULL, Pais VARCHAR(25), Nome VARCHAR(25), TipoDono BOOLEAN, PRIMARY KEY(Codigo));
 CREATE TABLE Ala(Codigo INT NOT NULL, Nome CHAR(5), Andar INT, Tema VARCHAR(50), PRIMARY KEY(Codigo));
-CREATE TABLE ObraDeArte(Codigo INT NOT NULL, CodigoDono INT, CodigoAla INT, LocalCriacao VARCHAR(25), DataInicio DATE, DataConclusao DATE, Material VARCHAR(30), Nome VARCHAR(80), MovArtistico VARCHAR(50), Imagem LONGBLOB, PRIMARY KEY(Codigo), FOREIGN KEY(CodigoDono) REFERENCES DonoArte(Codigo) ON DELETE CASCADE, FOREIGN KEY(CodigoAla) REFERENCES Ala(Codigo) ON DELETE CASCADE);
+CREATE TABLE ObraDeArte(Codigo INT NOT NULL, CodigoDono INT, CodigoAla INT, LocalCriacao VARCHAR(25), DataInicio DATE, DataConclusao DATE, Material VARCHAR(100), Nome VARCHAR(80), MovArtistico VARCHAR(50), Imagem LONGBLOB, PRIMARY KEY(Codigo), FOREIGN KEY(CodigoDono) REFERENCES DonoArte(Codigo) ON DELETE CASCADE, FOREIGN KEY(CodigoAla) REFERENCES Ala(Codigo) ON DELETE CASCADE);
 
 CREATE TABLE Autor(Codigo INT NOT NULL, Nome VARCHAR(80), DataNascimento DATE, DataMorte DATE, PaisOrigem VARCHAR(25), PRIMARY KEY(Codigo));
 

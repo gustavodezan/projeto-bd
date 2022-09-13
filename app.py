@@ -3,7 +3,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.filedialog import askopenfiles
 import crud
-from tela_adm import AdmScr
+from telas.tela_adm import AdmScr
 
 class MainScr(ttk.Frame):
     def __init__(self):

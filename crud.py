@@ -3,7 +3,7 @@ from datetime import datetime
 
 # CREATE:
 
-# add a new artist to the database -> Codigo, Pais, Nome, TipoDono:boolean
+# add a new artist to the database
 # TipoDono = 0 -> Pessoa Fisica
 # TipoDono = 1 -> Pessoa Juridica
 def create_dono_arte(codigo, pais, nome, tipoDono):
@@ -13,7 +13,7 @@ def create_dono_arte(codigo, pais, nome, tipoDono):
     mydb.commit()
     print(mycursor.rowcount, "Owner record inserted.")
 
-# add a new section to the database -> Codigo, Nome, Andar, Tema
+# add a new section to the database
 def create_ala(Codigo, Nome, Andar, Tema):
     sql = "INSERT INTO Ala(Codigo, Nome, Andar, Tema) VALUES (%s, %s, %s, %s)"
     val = (Codigo, Nome, Andar, Tema)
@@ -21,7 +21,7 @@ def create_ala(Codigo, Nome, Andar, Tema):
     mydb.commit()
     print(mycursor.rowcount, "Section record inserted.")
 
-# add a new art piece to the database -> Codigo, CodigoDono, CodigoAla, LocalCriacao, DataInicio, DataConclusao, Material, Nome, MovArtistico, Imagem
+# add a new art piece to the database
 def create_arte(Codigo, CodigoDono, CodigoAla, LocalCriacao, DataInicio, DataConclusao, Material, Nome, MovArtistico, Imagem):
     sql = "INSERT INTO ObraDeArte(Codigo, CodigoDono, CodigoAla, LocalCriacao, DataInicio, DataConclusao, Material, Nome, MovArtistico, Imagem) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (Codigo, CodigoDono, CodigoAla, LocalCriacao, DataInicio, DataConclusao, Material, Nome, MovArtistico, Imagem)
@@ -29,7 +29,7 @@ def create_arte(Codigo, CodigoDono, CodigoAla, LocalCriacao, DataInicio, DataCon
     mydb.commit()
     print(mycursor.rowcount, "Art record inserted.")
 
-# add a new artist to the database -> Codigo, Nome, DataNascimento, DataMorte, PaisOrigem
+# add a new artist to the database
 def create_autor(Codigo, Nome, DataNascimento, DataMorte, PaisOrigem):
     sql = "INSERT INTO Autor(Codigo, Nome, DataNascimento, DataMorte, PaisOrigem) VALUES (%s, %s, %s, %s, %s)"
     val = (Codigo, Nome, DataNascimento, DataMorte, PaisOrigem)
@@ -37,7 +37,7 @@ def create_autor(Codigo, Nome, DataNascimento, DataMorte, PaisOrigem):
     mydb.commit()
     print(mycursor.rowcount, "Author record inserted.")
 
-# add a new event to the database -> Nome, CodigoAla, DataInicio, DataFim, Descricao, Instituicao
+# add a new event to the database
 def create_evento(Nome, CodigoAla, DataInicio, DataFim, Descricao, Instituicao):
     sql = "INSERT INTO Evento(Nome, CodigoAla, DataInicio, DataFim, Descricao, Instituicao) VALUES (%s, %s, %s, %s, %s, %s)"
     val = (Nome, CodigoAla, DataInicio, DataFim, Descricao, Instituicao)
@@ -45,7 +45,7 @@ def create_evento(Nome, CodigoAla, DataInicio, DataFim, Descricao, Instituicao):
     mydb.commit()
     print(mycursor.rowcount, "Event record inserted.")
 
-# add a new Integrante to the database -> Codigo, Nome, DataNascimento, Funcao
+# add a new Integrante to the database
 def create_integrante_evento(Codigo, Nome, DataNascimento, Funcao):
     sql = "INSERT INTO IntegranteEvento(Codigo, Nome, DataNascimento, Funcao) VALUES (%s, %s, %s, %s)"
     val = (Codigo, Nome, DataNascimento, Funcao)
@@ -53,7 +53,7 @@ def create_integrante_evento(Codigo, Nome, DataNascimento, Funcao):
     mydb.commit()
     print(mycursor.rowcount, "Event member record inserted.")
 
-# add a new visitor to the database -> CPF, Nome, Nacionalidade, TipoEntrada
+# add a new visitor to the database
 def create_visitante(CPF, Nome, Nacionalidade, TipoEntrada):
     sql = "INSERT INTO Visitante(CPF, Nome, Nacionalidade, TipoEntrada) VALUES (%s, %s, %s, %s)"
     val = (CPF, Nome, Nacionalidade, TipoEntrada)
@@ -61,7 +61,7 @@ def create_visitante(CPF, Nome, Nacionalidade, TipoEntrada):
     mydb.commit()
     print(mycursor.rowcount, "Visitor record inserted.")
 
-# add a new employee to the database -> Matricula, CPF, Nome, DataNascimento, DataContratacao, Funcao, Endereco
+# add a new employee to the database
 def create_funcionario(Matricula, CPF, Nome, DataNascimento, DataContratacao, Funcao, Endereco):
     sql = "INSERT INTO Funcionario(Matricula, CPF, Nome, DataNascimento, DataContratacao, Funcao, Endereco) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     val = (Matricula, CPF, Nome, DataNascimento, DataContratacao, Funcao, Endereco)
@@ -69,7 +69,7 @@ def create_funcionario(Matricula, CPF, Nome, DataNascimento, DataContratacao, Fu
     mydb.commit()
     print(mycursor.rowcount, "Employee record inserted.")
 
-# add a new lost_item to the database -> Nome, Descricao, DataEncontrado, DataDevolucao, StatusItem, CodigoVisitante, CodigoFuncionario, CodigoAla
+# add a new lost_item to the database
 def create_item_perdido(Nome, Descricao, DataEncontrado, DataDevolucao, StatusItem, CodigoVisitante, CodigoFuncionario, CodigoAla):
     sql = "INSERT INTO ItemPerdido(Nome, Descricao, DataEncontrado, DataDevolucao, StatusItem, CodigoVisitante, CodigoFuncionario, CodigoAla) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     val = (Nome, Descricao, DataEncontrado, DataDevolucao, StatusItem, CodigoVisitante, CodigoFuncionario, CodigoAla)
@@ -77,7 +77,7 @@ def create_item_perdido(Nome, Descricao, DataEncontrado, DataDevolucao, StatusIt
     mydb.commit()
     print(mycursor.rowcount, "Lost item record inserted.")
 
-# add a new DataVisita to the database -> Codigo, DataVisita, CodigoVisitante
+# add a new DataVisita to the database
 def create_data_visita(Codigo:int, DataVisita:datetime, CodigoVisitante:str):
     sql = "INSERT INTO DataVisita(Codigo, DataVisita, CodigoVisitante) VALUES (%s, %s, %s)"
     val = (Codigo, DataVisita, CodigoVisitante)
@@ -85,7 +85,7 @@ def create_data_visita(Codigo:int, DataVisita:datetime, CodigoVisitante:str):
     mydb.commit()
     print(mycursor.rowcount, "Visit date record inserted.")
 
-# add a new Trabalha to the database -> CodigoFuncionario, CodigoAla
+# add a new Trabalha to the database
 def create_trabalha(CodigoFuncionario:int, CodigoAla:int):
     sql = "INSERT INTO Trabalha(CodigoFuncionario, CodigoAla) VALUES (%s, %s)"
     val = (CodigoFuncionario, CodigoAla)
@@ -93,7 +93,7 @@ def create_trabalha(CodigoFuncionario:int, CodigoAla:int):
     mydb.commit()
     print(mycursor.rowcount, "Works record inserted.")
 
-# add a new Participa to the database -> CodigoIntegrante, NomeEvento
+# add a new Participa to the database
 def create_participa(CodigoIntegrante:int, NomeEvento:str):
     sql = "INSERT INTO Participa(CodigoIntegrante, NomeEvento) VALUES (%s, %s)"
     val = (CodigoIntegrante, NomeEvento)
@@ -101,7 +101,7 @@ def create_participa(CodigoIntegrante:int, NomeEvento:str):
     mydb.commit()
     print(mycursor.rowcount, "Participates record inserted.")
 
-# add a new Autoria to the database -> CodigoObra, CodigoAutor
+# add a new Autoria to the database
 def create_autoria(CodigoObra:int, CodigoAutor:int):
     sql = "INSERT INTO Autoria(CodigoObra, CodigoAutor) VALUES (%s, %s)"
     val = (CodigoObra, CodigoAutor)
@@ -109,8 +109,8 @@ def create_autoria(CodigoObra:int, CodigoAutor:int):
     mydb.commit()
     print(mycursor.rowcount, "Authorship record inserted.")
 
-# add a record to the database -> multiple args
-def create_record(table, *args):
+# add a record to the database
+def insert(table, *args):
     sql = "INSERT INTO " + table + " VALUES ("	
     for i in range(len(args)):
         sql += "%s"

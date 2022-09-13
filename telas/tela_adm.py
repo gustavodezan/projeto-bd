@@ -1,7 +1,7 @@
 from tkinter import ttk
 import tkinter as tk
-from tela_eventos import EventScr
-from tela_registros import RegisterScr
+from telas.tela_eventos import EventScr
+from telas.tela_funcionarios import EmployeeScr
 
 class AdmScr(tk.Toplevel):
     def __init__(self, username=None, master=None):
@@ -20,10 +20,10 @@ class AdmScr(tk.Toplevel):
         btn_view_arts = ttk.Button(self, text="Ver museu", command=lambda:self.ver_museu())
         btn_view_arts.pack(fill=tk.X, padx=15, pady=5)
 
-        btn_view_events = ttk.Button(self, text="Ver eventos", command=lambda:self.ver_eventos())
+        btn_view_events = ttk.Button(self, text="Eventos", command=lambda:self.abrir_eventos())
         btn_view_events.pack(fill=tk.X, padx=15, pady=5)
 
-        btn_administer = ttk.Button(self, text="Registros", command=lambda:self.ver_registros())
+        btn_administer = ttk.Button(self, text="Funcionarios", command=lambda:self.abrir_funcionarios())
         btn_administer.pack(fill=tk.X, padx=15, pady=5)
 
         btn_logout = ttk.Button(self, text="Sair", command=self.destroy)
@@ -34,15 +34,16 @@ class AdmScr(tk.Toplevel):
         print("Abrir tela do museu")
         pass
 
-    def ver_eventos(self):
+    def abrir_eventos(self):
         # abrir tela de eventos
         print("Abrir tela de eventos")
+        EventScr(self)
         pass
 
-    def ver_registros(self):
+    def abrir_funcionarios(self):
         # abrir tela de registros
         print("Abrir tela de registros")
-        RegisterScr(self)
+        EmployeeScr(self)
         pass
 
     def destroy(self):

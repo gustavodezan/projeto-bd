@@ -4,7 +4,7 @@ from tkinter import ttk
 import tkinter as tk
 import crud
 
-class RegisterScr(tk.Toplevel):
+class EmployeeScr(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master=master)
         self.initUI()
@@ -28,7 +28,7 @@ class RegisterScr(tk.Toplevel):
             self.users.insert(tk.END, user)
 
         # create CRUD buttons
-        btn_create = ttk.Button(self, text="Criar", command=lambda:self.create())
+        btn_create = ttk.Button(self, text="Criar", command=lambda:CreateEmployeeScr(self))
         btn_create.pack(fill=tk.X, padx=15, pady=5)
 
         btn_update = ttk.Button(self, text="Atualizar", command=lambda:self.update())
@@ -39,36 +39,6 @@ class RegisterScr(tk.Toplevel):
 
         btn_back = ttk.Button(self, text="Voltar", command=self.destroy)
         btn_back.pack(fill=tk.X, padx=15, pady=5)
-
-    def create(self):
-        # abrir tela de criação
-        print("Abrir tela de criação")
-        # select if want to create a employee, a client or a item
-        # create a new window
-        self.create_window = tk.Toplevel(self)
-        self.create_window.geometry("800x600")
-        style = ttk.Style(self.create_window)
-        style.theme_use("clam")
-        self.create_window.title("Criar")
-
-        # create a label to show the options
-        lbl_options = ttk.Label(self.create_window, text="Criar")
-        lbl_options.pack(fill=tk.X, padx=15, pady=5)
-
-        # create a listbox to show the options
-        self.options = tk.Listbox(self.create_window)
-        self.options.pack(fill=tk.X, padx=15, pady=5)
-        self.options.insert(tk.END, "Funcionário")
-        self.options.insert(tk.END, "Cliente")
-        self.options.insert(tk.END, "Item")
-
-        # create a button to confirm the option
-        btn_confirm = ttk.Button(self.create_window, text="Confirmar", command=lambda:self.confirm())
-        btn_confirm.pack(fill=tk.X, padx=15, pady=5)
-
-        # create a button to cancel the option
-        btn_cancel = ttk.Button(self.create_window, text="Cancelar", command=lambda:self.cancel())
-        btn_cancel.pack(fill=tk.X, padx=15, pady=5)
         
     def confirm(self):
         # open the window according to the option
@@ -122,7 +92,7 @@ class CreateEmployeeScr(tk.Toplevel):
         style.theme_use("clam")
         self.title("Criar")
 
-        # Create inputs for: Matricula, CPF, Nome, DataNascimento, DataContratacao, Funcao, Endereco):
+        # Create inputs for:
         lbl_matricula = ttk.Label(self, text="Matricula")
         lbl_matricula.pack(fill=tk.X, padx=15, pady=5)
         self.matricula = ttk.Entry(self)
@@ -186,14 +156,15 @@ class CreateEmployeeScr(tk.Toplevel):
             data_nascimento = datetime.strptime(data_nascimento, "%d/%m/%Y")
             crud.create_funcionario(matricula, cpf, nome, data_nascimento, datetime.now(), funcao, endereco)
             # reload the main screen
-            self.master.master.refresh()
-            self.master.destroy()
+            self.master.refresh()
             self.destroy()
-
     
+    def cancel(self):
+        self.master.deiconify()
+        self.destroy()
         
 
 if __name__ == "__main__":
     root = tk.Tk()
-    RegisterScr(root)
+    EmployeeScr(root)
     root.mainloop()
