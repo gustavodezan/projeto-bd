@@ -14,7 +14,7 @@ CREATE TABLE Visitante(CPF CHAR(11) NOT NULL, Nome VARCHAR(80), Nacionalidade VA
 CREATE TABLE Funcionario(Matricula INT NOT NULL, CPF CHAR(11) NOT NULL, Nome VARCHAR(80), DataNascimento DATE, DataContratacao DATE, Funcao VARCHAR(20), Endereco VARCHAR(50), PRIMARY KEY(Matricula));
 CREATE TABLE ItemPerdido(Nome VARCHAR(30) NOT NULL,Descricao VARCHAR(200),DataEncontrado DATE,DataDevolucao DATE,StatusItem BOOLEAN,CodigoVisitante CHAR(11),CodigoFuncionario INT,CodigoAla INT, PRIMARY KEY(Nome),FOREIGN KEY(CodigoAla) REFERENCES Ala(Codigo) ON DELETE CASCADE,FOREIGN KEY(CodigoVisitante) REFERENCES Visitante(CPF),FOREIGN KEY(CodigoFuncionario) REFERENCES Funcionario(Matricula));
 
-CREATE TABLE DataVisita(Codigo INT NOT NULL, DataVisita DATE, CodigoVisitante CHAR(11) NOT NULL, FOREIGN KEY(CodigoVisitante) REFERENCES Visitante(CPF));
+CREATE TABLE DataVisita(Codigo INT NOT NULL, DataVisita DATE, CodigoVisitante CHAR(11) NOT NULL, PRIMARY KEY(Codigo), FOREIGN KEY(CodigoVisitante) REFERENCES Visitante(CPF));
 CREATE TABLE Trabalha(CodigoFuncionario INT NOT NULL, CodigoAla INT NOT NULL, PRIMARY KEY(CodigoFuncionario,CodigoAla),FOREIGN KEY(CodigoFuncionario) REFERENCES Funcionario(Matricula), FOREIGN KEY(CodigoAla) REFERENCES Ala(Codigo));
 CREATE TABLE Participa(CodigoIntegrante INT NOT NULL, NomeEvento VARCHAR(50) NOT NULL, PRIMARY KEY(CodigoIntegrante,NomeEvento),FOREIGN KEY(CodigoIntegrante) REFERENCES IntegranteEvento(Codigo), FOREIGN KEY(NomeEvento) REFERENCES Evento(Nome));
-CREATE TABLE Autoria(CodigoObra INT NOT NULL, CodigoAutor INT NOT NULL, PRIMARY KEY(CodigoObra,CodigoAutor),FOREIGN KEY(CodigoObra) REFERENCES ObraDeArte(Codigo), FOREIGN KEY(CodigoAutor) REFERENCES Autor(Codigo));
+CREATE TABLE Autoria(CodigoObra INT NOT NULL, CodigoAutor INT NOT NULL, PRIMARY KEY(CodigoObra),FOREIGN KEY(CodigoObra) REFERENCES ObraDeArte(Codigo), FOREIGN KEY(CodigoAutor) REFERENCES Autor(Codigo));

@@ -1,6 +1,6 @@
 from dataclasses import fields
 from datetime import datetime
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import tkinter as tk
 import crud
 
@@ -31,7 +31,7 @@ class EmployeeScr(tk.Toplevel):
         btn_create = ttk.Button(self, text="Criar", command=lambda:CreateEmployeeScr(self))
         btn_create.pack(fill=tk.X, padx=15, pady=5)
 
-        btn_update = ttk.Button(self, text="Atualizar", command=lambda:self.update())
+        btn_update = ttk.Button(self, text="Atualizar", command=lambda:UpdateFuncionarioScr(self, self.users.get(self.users.curselection())))
         btn_update.pack(fill=tk.X, padx=15, pady=5)
 
         btn_delete = ttk.Button(self, text="Deletar", command=lambda:self.delete())
@@ -51,18 +51,9 @@ class EmployeeScr(tk.Toplevel):
             pass
         else:
             print("Erro")
+
     def cancel(self):
         self.create_window.destroy()
-
-    def read(self):
-        # abrir tela de leitura
-        print("Abrir tela de leitura")
-        pass
-
-    def update(self):
-        # abrir tela de atualização
-        print("Abrir tela de atualização")
-        pass
 
     def delete(self):
         # abrir tela de deleção
@@ -123,6 +114,11 @@ class CreateEmployeeScr(tk.Toplevel):
         self.endereco = ttk.Entry(self)
         self.endereco.pack(fill=tk.X, padx=15, pady=5)
 
+        lbl_ala = ttk.Label(self, text="Ala")
+        lbl_ala.pack(fill=tk.X, padx=15, pady=5)
+        self.ala = ttk.Entry(self)
+        self.ala.pack(fill=tk.X, padx=15, pady=5)
+
         # create a button to confirm the creation
         btn_confirm = ttk.Button(self, text="Confirmar", command=lambda:self.confirm(lbl_matricula, lbl_cpf, lbl_nome, lbl_data_nascimento, lbl_funcao, lbl_endereco))
         btn_confirm.pack(fill=tk.X, padx=15, pady=5)
@@ -139,6 +135,7 @@ class CreateEmployeeScr(tk.Toplevel):
         data_nascimento = self.data_nascimento.get()
         funcao = self.funcao.get()
         endereco = self.endereco.get()
+        ala = self.ala.get()
         if matricula == "":
             lbl_matricula.config(foreground="red")
         if cpf == "":
@@ -151,10 +148,11 @@ class CreateEmployeeScr(tk.Toplevel):
             lbl_funcao.config(foreground="red")
         if endereco == "":
             lbl_endereco.config(foreground="red")
-        if matricula != "" and cpf != "" and nome != "" and data_nascimento != "" and funcao != "" and endereco != "":
+        if ala != "" and matricula != "" and cpf != "" and nome != "" and data_nascimento != "" and funcao != "" and endereco != "":
             # create a new employee
             data_nascimento = datetime.strptime(data_nascimento, "%d/%m/%Y")
             crud.create_funcionario(matricula, cpf, nome, data_nascimento, datetime.now(), funcao, endereco)
+            crud.create_trabalha(matricula, ala)
             # reload the main screen
             self.master.refresh()
             self.destroy()
@@ -164,7 +162,53 @@ class CreateEmployeeScr(tk.Toplevel):
         self.destroy()
         
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    EmployeeScr(root)
-    root.mainloop()
+class UpdateFuncionarioScr(tk.Toplevel):
+    def __init__(self, codigo_funcionario=None, master=None):
+        super().__init__(master=master)
+        self.codigo_funcionario = codigo_funcionario
+        self.initUI()
+        self.master.iconify()
+
+    def initUI(self):
+        self.geometry("800x600")
+        style = ttk.Style(self)
+        style.theme_use("clam")
+        self.title("Criar")
+
+        # Create inputs:
+        lbl_table = ttk.Label(self, text="Insira o dado que quer alterar")
+        lbl_table.pack(fill=tk.X, padx=15, pady=5)
+        self.table = ttk.Entry(self)
+        self.table.pack(fill=tk.X, padx=15, pady=5)
+
+        lbl_data = ttk.Label(self, text="Insira o novo valor")
+        lbl_data.pack(fill=tk.X, padx=15, pady=5)
+        self.data = ttk.Entry(self)
+        self.data.pack(fill=tk.X, padx=15, pady=5)
+
+        btn_confirm = ttk.Button(self, text="Confirmar", command=lambda:self.confirm())
+        btn_confirm.pack(fill=tk.X, padx=15, pady=5)
+
+        btn_cancel = ttk.Button(self, text="Cancelar", command=lambda:self.cancel())
+        btn_cancel.pack(fill=tk.X, padx=15, pady=5)
+
+    def confirm(self):
+        try:
+            table = self.table.get()
+            table.lower().capitalize()
+            data = self.data.get()
+
+            crud.update_record("Funcionario", table, data, "Codigo", str(self.codigo_funcionario))
+            self.master.refresh()
+            self.destroy()
+        except Exception as e:
+            # show messagebox with error
+            messagebox.showerror("Erro", e)
+
+    def cancel(self):
+        self.master.deiconify()
+        self.destroy()
+
+    def refresh(self):
+        self.destroy()
+        self.__init__()

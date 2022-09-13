@@ -3,6 +3,7 @@ from datetime import datetime
 from tkinter import Entry, messagebox
 import tkinter.ttk as ttk
 import tkinter as tk
+from turtle import width
 import crud
 
 class EventScr(tk.Toplevel):

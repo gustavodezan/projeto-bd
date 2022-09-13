@@ -2,6 +2,7 @@ from ctypes import alignment
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.filedialog import askopenfiles
+from turtle import width
 import crud
 from telas.tela_adm import AdmScr
 
@@ -29,17 +30,17 @@ class MainScr(ttk.Frame):
         # Campo de usuario
         lbl_texto_usuario = ttk.Label(frame1, text="Usuário (Código de identificação)", font=("Arial", 10))
         lbl_texto_usuario.pack(side=tk.TOP, padx=5, pady=5)
-        txt_user = tk.Text(frame1,width=40, height=1)
+        txt_user = tk.Entry(frame1,textvariable=tk.StringVar())
         txt_user.pack(side=tk.TOP, padx=5, pady=5, expand=True)
 
         # Campo de senha
         lbl_texto_senha = ttk.Label(frame1, text="Senha", font=("Arial", 10))
         lbl_texto_senha.pack(side=tk.TOP, padx=5, pady=5)
-        txt_senha = tk.Text(frame1,width=40, height=1)
+        txt_senha = tk.Entry(frame1, textvariable=tk.StringVar())
         txt_senha.pack(side=tk.TOP, padx=5, pady=5, expand=True)
 
         # Botao de login
-        btn_login = ttk.Button(frame1, text="Login", command=lambda: self.login(txt_user.get("1.0", tk.END),txt_senha.get("1.0", tk.END)))
+        btn_login = ttk.Button(frame1, text="Login", command=lambda: self.login(txt_user.get(),txt_senha.get()))
         btn_login.pack(side=tk.TOP, padx=5, pady=5)
 
         # # Botao de cadastro

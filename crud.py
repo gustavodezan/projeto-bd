@@ -141,7 +141,7 @@ def select_record(table:str, column:str, value:str):
     sql = "SELECT * FROM " + table + " WHERE " + column + " = " + value
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
-    return myresult
+    return myresult[0]
 
 # Select all records from the database
 def select_all(table:str):
