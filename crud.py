@@ -78,7 +78,7 @@ def create_item_perdido(Nome, Descricao, DataEncontrado, DataDevolucao, StatusIt
     print(mycursor.rowcount, "Lost item record inserted.")
 
 # add a new DataVisita to the database -> Codigo, DataVisita, CodigoVisitante
-def create_data_visita(Codigo, DataVisita, CodigoVisitante):
+def create_data_visita(Codigo:int, DataVisita:datetime, CodigoVisitante:str):
     sql = "INSERT INTO DataVisita(Codigo, DataVisita, CodigoVisitante) VALUES (%s, %s, %s)"
     val = (Codigo, DataVisita, CodigoVisitante)
     mycursor.execute(sql, val)
@@ -86,7 +86,7 @@ def create_data_visita(Codigo, DataVisita, CodigoVisitante):
     print(mycursor.rowcount, "Visit date record inserted.")
 
 # add a new Trabalha to the database -> CodigoFuncionario, CodigoAla
-def create_trabalha(CodigoFuncionario, CodigoAla):
+def create_trabalha(CodigoFuncionario:int, CodigoAla:int):
     sql = "INSERT INTO Trabalha(CodigoFuncionario, CodigoAla) VALUES (%s, %s)"
     val = (CodigoFuncionario, CodigoAla)
     mycursor.execute(sql, val)
@@ -94,7 +94,7 @@ def create_trabalha(CodigoFuncionario, CodigoAla):
     print(mycursor.rowcount, "Works record inserted.")
 
 # add a new Participa to the database -> CodigoIntegrante, NomeEvento
-def create_participa(CodigoIntegrante, NomeEvento):
+def create_participa(CodigoIntegrante:int, NomeEvento:str):
     sql = "INSERT INTO Participa(CodigoIntegrante, NomeEvento) VALUES (%s, %s)"
     val = (CodigoIntegrante, NomeEvento)
     mycursor.execute(sql, val)
@@ -102,7 +102,7 @@ def create_participa(CodigoIntegrante, NomeEvento):
     print(mycursor.rowcount, "Participates record inserted.")
 
 # add a new Autoria to the database -> CodigoObra, CodigoAutor
-def create_autoria(CodigoObra, CodigoAutor):
+def create_autoria(CodigoObra:int, CodigoAutor:int):
     sql = "INSERT INTO Autoria(CodigoObra, CodigoAutor) VALUES (%s, %s)"
     val = (CodigoObra, CodigoAutor)
     mycursor.execute(sql, val)
@@ -111,70 +111,60 @@ def create_autoria(CodigoObra, CodigoAutor):
 
 # add a record to the database -> multiple args
 def create_record(table, *args):
-    if table == "Dono":
-        create_dono_arte(*args)
-    elif table == "Ala":
-        create_ala(*args)
-    elif table == "Obra":
-        create_arte(*args)
-    elif table == "Autor":
-        create_autor(*args)
-    elif table == "Evento":
-        create_evento(*args)
-    elif table == "IntegranteEvento":
-        create_integrante_evento(*args)
-    elif table == "Visitante":
-        create_visitante(*args)
-    elif table == "Funcionario":
-        create_funcionario(*args)
-    elif table == "ItemPerdido":
-        create_item_perdido(*args)
-    elif table == "DataVisita":
-        create_data_visita(*args)
-    elif table == "Trabalha":
-        create_trabalha(*args)
-    elif table == "Participa":
-        create_participa(*args)
-    elif table == "Autoria":
-        create_autoria(*args)
-    else:
-        print("Invalid table name.")
+    sql = "INSERT INTO " + table + " VALUES ("	
+    for i in range(len(args)):
+        sql += "%s"
+        if i != len(args) - 1:
+            sql += ", "
+    sql += ")"
+    val = args
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
 
 # Delete a record from the database
-def delete_record(table, column, value):
+def delete_record(table:str, column:str, value:str):
     sql = "DELETE FROM " + table + " WHERE " + column + " = " + value
     mycursor.execute(sql)
     mydb.commit()
     print(mycursor.rowcount, "record(s) deleted")
 
 # Update a record from the database
-def update_record(table, column, value, column2, value2):
+def update_record(table:str, column:str, value:str, column2:str, value2:str):
     sql = "UPDATE " + table + " SET " + column + " = " + value + " WHERE " + column2 + " = " + value2
     mycursor.execute(sql)
     mydb.commit()
     print(mycursor.rowcount, "record(s) affected")
 
 # Select a record from the database
-def select_record(table, column, value):
+def select_record(table:str, column:str, value:str):
     sql = "SELECT * FROM " + table + " WHERE " + column + " = " + value
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
-    for x in myresult:
-        print(x)
+    return myresult
 
 # Select all records from the database
-def select_all(table):
+def select_all(table:str):
     sql = "SELECT * FROM " + table
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
-    for x in myresult:
-        print(x)
+    return myresult
+
+# Login
+def verifica_login(user:int, password:str) -> list:
+    sql = "SELECT * FROM Funcionario WHERE Matricula = " + user
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    if myresult[0][1] == password:
+        return myresult
+    return []
 
 if __name__ == "__main__":
     create_dono_arte(1, "Brasil", "João", False)
     create_ala(1, "Arte", 1, "Arte")
-    create_arte(1, 1, 1, "Portugal", "2019-01-01", "2019-01-01", "Madeira", "Madeira", "Madeira", "Madeira")
-    create_arte(2, 1, 1, "Portugal", "2019-01-01", "2019-01-01", "Madeira", "Madeira", "Madeira", "Madeira")
+    img = open("./img/pic1.jpg", "rb")
+    create_arte(1, 1, 1, "Portugal", "2019-01-01", "2019-01-01", "Madeira", "Madeira", "Madeira", img.read())
+    create_arte(2, 1, 1, "Portugal", "2019-01-01", "2019-01-01", "Madeira", "Madeira", "Madeira", img.read())
 
     create_autor(1, "João", "2019-01-01", "2019-01-01", "Brasil")
 
@@ -182,7 +172,7 @@ if __name__ == "__main__":
     create_integrante_evento(1, "João", "2019-01-01", "Evento")
 
     create_visitante(1, "João", "Brasil", 1)
-    create_funcionario(1, 1, "João", "2019-01-01", "2019-01-01", "Evento", "Evento")
+    create_funcionario(1, 1, "admin", datetime(2000,1,1), datetime.now(), "Evento", "Evento")
     create_item_perdido("Evento", "Evento", datetime(2019,1,1), "2019-01-01", "Evento", 1, 1, 1)
 
     create_data_visita(1, datetime(2019,1,1), 1)
@@ -192,3 +182,6 @@ if __name__ == "__main__":
 
     # select_all("Autor")
     select_record("Autor", "Nome", "'João'")
+
+    # select_all("Obra")
+    arte = select_record("ObraDeArte", "Nome", "'Madeira'")
